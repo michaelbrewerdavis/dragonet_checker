@@ -1,8 +1,88 @@
 <html>
 <head>
-<title>Dragonets<title>
+<title>Dragonets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    background-image: url(https://www.publicdomainpictures.net/pictures/270000/velka/dragon-overlay-background-1532636057EIO.jpg);
+    background-position: center;
+    background-size: cover;
+
+    font-size: 2rem;
+  }
+
+  .greetings {
+    background-color: lightskyblue;
+    padding: .5rem;
+  }
+
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .answer {
+    background-color: lightskyblue;
+    padding: .5rem;
+
+    margin: 0;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .guess {
+    font-size: 2rem;
+  }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+  <script>
+    window.onload = function() {
+      var params = new URLSearchParams(window.location.search)
+      var prompt = params.get('prompt')
+
+      document.getElementById('prompt').innerText = prompt
+    }
+    function check() {
+      var params = new URLSearchParams(window.location.search)
+      var encryptedAnswer = params.get('answer')
+
+      var answer = CryptoJS.AES.decrypt(encryptedAnswer, "The dragonets are coming").toString(CryptoJS.enc.Utf8)
+      var guess = document.getElementById('guess').value
+      var display = document.getElementById('correctness')
+      if (answer == guess) {
+        display.innerText = "Correct!"
+      } else {
+        display.innerText = "Incorrect"
+      }
+      display.classList.remove('hide')
+      return false
+    }
+  </script>
 </head>
 <body>
-Hello, dragonets!
+  <div class="greetings">
+    Greetings, worthy dragonets!  Enter your answer below to see if you have succeeded.
+  </div>
+  <div class="vertical-center">
+    <div class="greetings" id="prompt"></div>>
+    <form onsubmit="return check()">
+      <input type="text" id="guess" name="guess" class="guess" required />
+      <br />
+      <button type="submit" class="greetings">Check</button>
+    </form>
+  </div>
+  <div class="answer hide" id="correctness"></div>
 </body>
 </html>

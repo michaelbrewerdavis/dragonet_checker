@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Dragonets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-size: 2rem;
+  }
+
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .answer {
+    font-size: 2rem;
+  }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+  <script>
+    function convert() {
+      var answer = document.getElementById('answer').value
+      var encryptedAnswer = CryptoJS.AES.encrypt(answer, "The dragonets are coming")
+
+      document.getElementById('answer').value = encryptedAnswer
+      return true
+    }
+  </script>
+</head>
+<body>
+  <div class="greetings">
+    Enter the answer text to be encoded
+  </div>
+  <div class="vertical-center">
+    <form action="index.html" onsubmit="return convert()">
+        Prompt:
+        <input type="text" id="prompt" name="prompt" class="answer" required />
+        Answer:
+        <input type="text" id="answer" name="answer" class="answer" required />
+      <br />
+      <button type="submit" class="greetings">Convert</button>
+    </form>
+  </div>
+</body>
+</html>
