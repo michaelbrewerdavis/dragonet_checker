@@ -37,6 +37,14 @@
     transform: translate(-50%, -50%);
   }
 
+  .correct {
+    background-color: lightgreen;
+  }
+
+  .incorrect {
+    background-color: palevioletred;
+  }
+
   .hide {
     display: none;
   }
@@ -61,12 +69,16 @@
       var answer = CryptoJS.AES.decrypt(encryptedAnswer, "The dragonets are coming").toString(CryptoJS.enc.Utf8)
       var guess = document.getElementById('guess').value
       var display = document.getElementById('correctness')
-      if (answer == guess) {
-        display.innerText = "Correct!"
-      } else {
-        display.innerText = "Incorrect"
-      }
+      display.classList.remove('correct')
+      display.classList.remove('incorrect')
       display.classList.remove('hide')
+      if (answer == guess) {
+        display.innerText = "SUCCESS 😃"
+        display.classList.add('correct')
+      } else {
+        display.innerText = "FAILURE 😠"
+        display.classList.add('incorrect')
+      }
       return false
     }
   </script>
